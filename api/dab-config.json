@@ -1,0 +1,73 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.7.81/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('MSSQL_CONNECTION_STRING')"
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": true
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "host": {
+      "cors": {
+        "origins": [
+          "http://localhost:5173",
+          "https://web-app-202602181630.salmonwater-3a730595.eastus2.azurecontainerapps.io"
+        ],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "EntraId",
+        "jwt": {
+          "audience": "053292c1-4777-443f-bd8b-ca313ae971d1",
+          "issuer": "https://login.microsoftonline.com/eaf341ca-58d3-4d02-93c3-787dfe8e154f/v2.0"
+        }
+      },
+      "mode": "development"
+    }
+  },
+  "entities": {
+    "Todos": {
+      "source": {
+        "object": "dbo.Todos",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Todo",
+          "plural": "Todos"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "create"
+            },
+            {
+              "action": "read"
+            },
+            {
+              "action": "update"
+            },
+            {
+              "action": "delete"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

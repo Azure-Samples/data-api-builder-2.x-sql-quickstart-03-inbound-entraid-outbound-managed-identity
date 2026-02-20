@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AppHost",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": ["run", "--project", "${workspaceFolder}/Aspire.AppHost/Aspire.AppHost.csproj"],
+            "console": "integratedTerminal"
+        }
+    ]
+}
