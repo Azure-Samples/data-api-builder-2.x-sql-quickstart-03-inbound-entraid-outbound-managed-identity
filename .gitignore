@@ -1,6 +1,7 @@
 .env
 .azure-env
 .azure/
+.aspire/
 dab-config.*.json
 **/bin
 **/obj

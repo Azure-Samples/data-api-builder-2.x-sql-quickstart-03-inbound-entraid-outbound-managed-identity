@@ -1,4 +1,4 @@
-# Entra ID setup — creates app registration and .azure-env
+# Entra ID setup -- creates app registration and .azure-env
 
 $ErrorActionPreference = "Stop"
 
@@ -138,7 +138,7 @@ Write-Host "Environment written to .azure-env" -ForegroundColor Green
 
 $dabConfigContent = Get-Content "$repoRoot/data-api/dab-config.json" -Raw
 if ($dabConfigContent -match '__AUDIENCE__|__ISSUER__') {
-    Write-Host "✗ data-api/dab-config.json still contains placeholders" -ForegroundColor Red
+    Write-Host "x data-api/dab-config.json still contains placeholders" -ForegroundColor Red
     exit 1
 }
-Write-Host "✓ DAB config verified" -ForegroundColor Green
+Write-Host "v DAB config verified" -ForegroundColor Green

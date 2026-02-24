@@ -1,4 +1,4 @@
-# Post-up hook — deploys content after Bicep creates all resources
+# Post-up hook -- deploys content after Bicep creates all resources
 # Runs automatically after `azd provision` or `azd up`
 
 $ErrorActionPreference = "Stop"

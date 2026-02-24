@@ -1,4 +1,4 @@
-# Post-down hook — cleans up Entra ID resources after `azd down`
+# Post-down hook -- cleans up Entra ID resources after `azd down`
 # App registrations are tenant-level and not deleted by `azd down`
 
 $ErrorActionPreference = "Stop"
@@ -6,7 +6,7 @@ $repoRoot = (Resolve-Path "$PSScriptRoot/..").Path
 $azureEnvFile = "$repoRoot/.azure-env"
 
 if (-not (Test-Path $azureEnvFile)) {
-    Write-Host "No .azure-env file found — nothing to clean up." -ForegroundColor Gray
+    Write-Host "No .azure-env file found -- nothing to clean up." -ForegroundColor Gray
     exit 0
 }
 
