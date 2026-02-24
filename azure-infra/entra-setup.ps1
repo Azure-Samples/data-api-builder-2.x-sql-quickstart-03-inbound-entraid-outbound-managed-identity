@@ -1,6 +1,12 @@
 # Entra ID setup — creates app registration and .azure-env
 
 $ErrorActionPreference = "Stop"
+
+if ($env:DAB_ENTRA_ALREADY_RAN -eq '1') {
+    Write-Host "Skipping Entra setup (already executed in this azure-up run)." -ForegroundColor Gray
+    return
+}
+
 $repoRoot = (Resolve-Path "$PSScriptRoot/..").Path
 $azureEnvFile = "$repoRoot/.azure-env"
 
