@@ -1,0 +1,11 @@
+.env
+.azure-env
+.azure/
+.aspire/
+dab-config.*.json
+**/bin
+**/obj
+node_modules/
+web-deploy-temp/
+api-deploy-temp/
+web-deploy.zip

@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: dab-mssql-quickstart3
+metadata:
+  template: dab-mssql-quickstart3
+
+infra:
+  provider: bicep
+  path: azure-infra
+  module: main
+
+hooks:
+  preprovision:
+    shell: pwsh
+    continueOnError: false
+    interactive: true
+    run: ./azure-infra/entra-setup.ps1
+  postprovision:
+    shell: pwsh
+    continueOnError: false
+    interactive: true
+    run: ./azure-infra/post-provision.ps1
+  postdown:
+    shell: pwsh
+    continueOnError: true
+    interactive: true
+    run: ./azure-infra/entra-teardown.ps1

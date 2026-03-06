@@ -1,0 +1,7 @@
+CREATE TABLE [dbo].[Todos] (
+    [TodoId]    INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    [Title]     NVARCHAR(200) NOT NULL,
+    [DueDate]   DATE NOT NULL,
+    [Owner]     NVARCHAR(128) NOT NULL DEFAULT 'anonymous',
+    [Completed] BIT NOT NULL DEFAULT 0
+);
