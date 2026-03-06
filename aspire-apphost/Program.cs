@@ -54,7 +54,7 @@ var apiServer = builder
     .WithOtlpExporter()
     .WithParentRelationship(sqlDatabase)
     .WithHttpHealthCheck("/health")
-    .WaitFor(sqlDatabaseProject);
+    .WaitForCompletion(sqlDatabaseProject);
 
 var sqlCommander = builder
     .AddContainer(options.SqlCmdr, "jerrynixon/sql-commander", options.SqlCmdrImage)
@@ -68,7 +68,7 @@ var sqlCommander = builder
     })
     .WithParentRelationship(sqlDatabase)
     .WithHttpHealthCheck("/health")
-    .WaitFor(sqlDatabaseProject);
+    .WaitForCompletion(sqlDatabaseProject);
 
 var webApp = builder
     .AddContainer(options.WebApp, "nginx", "alpine")
@@ -80,7 +80,7 @@ var webApp = builder
         context.Urls.Clear();
         context.Urls.Add(new() { Url = "/", DisplayText = "Web App", Endpoint = context.GetEndpoint("http") });
     })
-    .WaitForCompletion(apiServer);
+    .WaitFor(apiServer);
 
 var mcpInspector = builder
     .AddMcpInspector("mcp-inspector", options =>
