@@ -98,6 +98,16 @@ pwsh ./azure-infra/azure-down.ps1
 
 > The web files (`index.html`, `app.js`, `dab.js`, `config.js`) are identical to Quickstart 2. No MSAL, no login, no bearer tokens.
 
+## Related Quickstarts
+
+| Quickstart | Inbound | Outbound | Security |
+|------------|---------|----------|----------|
+| [Quickstart 1](https://github.com/Azure-Samples/data-api-builder-2.x-sql-quickstart-01-inbound-anonymous-outbound-sql-auth) | Anonymous | SQL Auth | — |
+| [Quickstart 2](https://github.com/Azure-Samples/data-api-builder-2.x-sql-quickstart-02-inbound-anonymous-outbound-managed-identity) | Anonymous | Managed Identity | — |
+| **This repo** | Entra ID | Managed Identity | — |
+| [Quickstart 4](https://github.com/Azure-Samples/data-api-builder-2.x-sql-quickstart-04-inbound-entraid-outbound-managed-identity-api-rls) | Entra ID | Managed Identity | API RLS |
+| [Quickstart 5](https://github.com/Azure-Samples/data-api-builder-2.x-sql-quickstart-05-inbound-entraid-outbound-managed-identity-db-rls) | Entra ID | Managed Identity | DB RLS |
+
 ## Next Steps
 
 - [Quickstart 4](../quickstart4/) — Add login, bearer tokens, and per-user filtering with DAB policies
