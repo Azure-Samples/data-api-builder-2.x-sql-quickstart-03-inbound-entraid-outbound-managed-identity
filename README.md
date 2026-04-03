@@ -1,10 +1,10 @@
 # Quickstart 3: Setting Up Entra ID
 
-Builds on [Quickstart 2](../quickstart2/) by introducing **Microsoft Entra ID** as the authentication provider on the API. The web app remains fully anonymous — no login UI, no MSAL — identical to Quickstart 2 from the user's perspective.
+Introduces **Microsoft Entra ID** as the authentication provider on the API. The web app remains fully anonymous — no login UI and no MSAL in this quickstart.
 
 The key change is on the API side: DAB is configured with an **EntraId** authentication provider and an **anonymous** role. An Entra ID app registration is created (audience + issuer), wiring up the auth infrastructure. Because the role is `anonymous`, the web app continues to work without bearer tokens.
 
-This quickstart sets the stage for [Quickstart 4](../quickstart4/), which adds login, bearer tokens, and per-user filtering.
+This quickstart focuses on wiring authentication infrastructure at the API layer while keeping anonymous browser access.
 
 ## What You'll Learn
 
@@ -21,7 +21,7 @@ This quickstart sets the stage for [Quickstart 4](../quickstart4/), which adds l
 | Web → API | Anonymous | Anonymous |
 | API → SQL | SQL Auth | **SAMI** |
 
-> **Key point:** The API has an Entra ID provider, but the anonymous role allows unauthenticated requests. The web app is unchanged from Quickstart 2. Authentication infrastructure is wired — login is added in [Quickstart 4](../quickstart4/).
+> **Key point:** The API has an Entra ID provider, but the anonymous role allows unauthenticated requests. Authentication infrastructure is present without requiring login in the browser.
 
 ## Architecture
 
@@ -71,7 +71,7 @@ dotnet run --project aspire-apphost
 
 On first run, Aspire detects that Entra ID isn't configured and offers to run `azure/entra-setup.ps1` interactively. This creates the app registration, updates `dab-config.json` with the audience and issuer, then starts normally.
 
-The web app loads anonymously. There is no login — the user experience is identical to Quickstart 2. Behind the scenes, DAB now has an EntraId provider configured.
+The web app loads anonymously with no login. Behind the scenes, DAB has an EntraId provider configured.
 
 ## Deploy to Azure
 
@@ -81,13 +81,13 @@ pwsh ./azure-infra/azure-up.ps1
 
 The `preprovision` hook runs `entra-setup.ps1` automatically. During teardown via `azure-down.ps1`, the `postdown` hook runs `entra-teardown.ps1` to delete the app registration.
 
-## What Changed from Quickstart 2
+## Key Implementation Files
 
-| File | Change |
-|------|--------|
-| `api/dab-config.json` | Adds EntraId auth provider with audience/issuer; `anonymous` role |
-| `Aspire.AppHost/Demo.cs` | Checks for Entra placeholders in dab-config, guides setup |
-| `azure-infra/entra-setup.ps1` | Creates app registration + API scope |
+| File | Purpose |
+|------|---------|
+| `api/dab-config.json` | Defines EntraId auth provider with audience/issuer and `anonymous` role |
+| `Aspire.AppHost/Demo.cs` | Checks for Entra placeholders in `dab-config.json` and guides setup |
+| `azure-infra/entra-setup.ps1` | Creates app registration and API scope |
 | `azure-infra/entra-teardown.ps1` | Deletes app registration on `azure-down` |
 
 To tear down resources:
@@ -96,19 +96,5 @@ To tear down resources:
 pwsh ./azure-infra/azure-down.ps1
 ```
 
-> The web files (`index.html`, `app.js`, `dab.js`, `config.js`) are identical to Quickstart 2. No MSAL, no login, no bearer tokens.
+> The web files (`index.html`, `app.js`, `dab.js`, `config.js`) stay anonymous in this quickstart. No MSAL, no login, and no bearer tokens are required in the browser.
 
-## Related Quickstarts
-
-| Quickstart | Inbound | Outbound | Security |
-|------------|---------|----------|----------|
-| [Quickstart 1](https://github.com/Azure-Samples/dab-2.0-quickstart-web_anon-api_anon-db_sql_auth) | Anonymous | SQL Auth | — |
-| [Quickstart 2](https://github.com/Azure-Samples/dab-2.0-quickstart-web_anon-api_anon-db_entra) | Anonymous | Managed Identity | — |
-| **This repo** | Entra ID | Managed Identity | — |
-| [Quickstart 4](https://github.com/Azure-Samples/dab-2.0-quickstart-web_entra-api_entra-db_entra-api_rls) | Entra ID | Managed Identity | API RLS |
-| [Quickstart 5](https://github.com/Azure-Samples/dab-2.0-quickstart-web_entra-api_entra-db_entra-db_rls) | Entra ID | Managed Identity | DB RLS |
-
-## Next Steps
-
-- [Quickstart 4](../quickstart4/) — Add login, bearer tokens, and per-user filtering with DAB policies
-- [Quickstart 5](../quickstart5/) — Move enforcement into SQL with Row-Level Security
