@@ -155,7 +155,7 @@ Ask brief clarifying questions one at a time:
 
 1. **Database** — `database/database.sqlproj` (SDK `Microsoft.Build.Sql/2.0.0`), `Tables/*.sql`, and `Scripts/PostDeployment.sql` with idempotent seed data.
 2. **Entra app** — `azure-infra/entra-up.ps1` creates an Entra application + service principal for the DAB API, exposes an Application ID URI (`api://<appId>`), and writes `ENTRA_AUDIENCE`, `ENTRA_ISSUER` (`https://login.microsoftonline.com/<tenantId>/v2.0`), and `ENTRA_TENANT_ID` into `.env`. `entra-down.ps1` deletes the app on teardown.
-3. **DAB** — `data-api/dab-config.json` pinned to DAB image `1.7.83-rc` or later. Configure:
+3. **DAB** — `data-api/dab-config.json` uses the GA DAB image `mcr.microsoft.com/azure-databases/data-api-builder:latest`. Configure:
    ```
    "authentication": {
      "provider": "EntraId",
